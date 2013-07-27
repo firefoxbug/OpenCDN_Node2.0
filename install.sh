@@ -69,6 +69,8 @@ function get_system_basic_info()
 ./uninstall.sh
 get_system_basic_info
 
+service opencdn stop
+
 killd_server
 
 OPENCDN_LOG_PATH="/usr/local/opencdn/log"
@@ -119,9 +121,11 @@ echo "===========================nginx install completed========================
 chown www:www -R ${OPENCDN_WEB_PATH}
 
 chmod u+x ${cur_dir}/opencdn
+rm -f /etc/init.d/opencdn
 mv -f ${cur_dir}/opencdn /etc/init.d/
 chkconfig --add opencdn
-service opencdn restart
+service opencdn start
+sleep 1
 service nginx start
 token=$(head -1 /usr/local/nginx/ocdn_lua/token.lua | awk -F [=\"] '{print $3}')
 echo "==========================OpenCDN===================================="

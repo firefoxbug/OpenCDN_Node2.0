@@ -88,6 +88,8 @@ echo "<h1>Welcome to OpenCDN</h1>" > ${OPENCDN_WEB_PATH}/index.html
 cp ./bandwidth.sh ${OPENCDN_EXEC_PATH}
 chmod u+x ${OPENCDN_EXEC_PATH}/bandwidth.sh
 
+cp ./sysinfo.py ${OPENCDN_EXEC_PATH}
+
 bandwidth_fifo="${OPENCDN_PIPE_PATH}/bandwidth.pipe"
 mkfifo $bandwidth_fifo
 if [ ! -p "${bandwidth_fifo}" ] 

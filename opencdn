@@ -1,0 +1,75 @@
+#!/bin/bash
+
+#description: opencdn
+#chkconfig: 2345 20 81
+
+EXEC="opencdn"
+PID_FILE="/var/run/$EXEC.pid"
+OPENCDN_EXEC_PATH="/usr/local/opencdn/sbin"
+BANDWIDTH="${OPENCDN_EXEC_PATH}/bandwidth.sh"
+SYSINFO="${OPENCDN_EXEC_PATH}/sysinfo.py"
+
+. /etc/rc.d/init.d/functions
+
+[ -f "$PID_FILE" ] || touch $PID_FILE
+
+stop()
+{
+		echo "Stoping $EXEC ..."
+		kill -9 `ps aux | grep bandwidth | awk '{print $2}'` >/dev/null 2>&1
+		kill -9 `ps aux | grep sysinfo | awk '{print $2}'` >/dev/null 2>&1
+		echo "" > $PID_FILE
+		usleep 100
+		echo -e "Shutting down $EXEC:       \033[32m[  OK  ]\033[0m" 
+}
+
+start()
+{
+		if [ "`cat $PID_FILE`" == "running" ];then
+			echo "$EXEC is running"
+			exit 1
+		fi
+		nohup /bin/bash ${BANDWIDTH} >/usr/local/opencdn/log/bandwidth.log 2>&1 &
+		nohup python ${SYSINFO} > /usr/local/opencdn/log/sysinfo.log 2>&1 &
+		echo "Starting $EXEC ..."
+
+		echo "running" > $PID_FILE
+		usleep 100
+		echo -e "Starting $EXEC:            \033[32m[  OK  ]\033[0m" 
+}
+
+restart()
+{
+	stop
+	echo ""
+	start
+}
+
+status()
+{
+       if [ "`cat $PID_FILE`" == "running" ]
+       then
+              echo "$EXEC is running"
+       else
+              echo "$EXEC is not running"
+       fi       
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		restart
+		;;
+	status)
+		status
+		;;
+	*)
+		echo "Usage: service $EXEC {start|stop|restart|status}"
+		exit 1
+esac
+exit $?

@@ -17,6 +17,11 @@ function killd_server()
 
 	rpm -e httpd
 	rpm -e nginx
+	rm -f /etc/init.d/opencdn
+	rm -f /etc/init.d/nginx
+	rm -f /var/run/nginx.pid
+	rm -rf /usr/local/nginx
+	rm -rf /usr/local/opencdn
 }
 
 get_char()
@@ -68,8 +73,6 @@ function get_system_basic_info()
 
 ./uninstall.sh
 get_system_basic_info
-
-service opencdn stop
 
 killd_server
 
@@ -124,8 +127,7 @@ chmod u+x ${cur_dir}/opencdn
 rm -f /etc/init.d/opencdn
 mv -f ${cur_dir}/opencdn /etc/init.d/
 chkconfig --add opencdn
-service opencdn start
-sleep 1
+service opencdn restart
 service nginx start
 token=$(head -1 /usr/local/nginx/ocdn_lua/token.lua | awk -F [=\"] '{print $3}')
 echo "==========================OpenCDN===================================="

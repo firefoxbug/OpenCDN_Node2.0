@@ -10,5 +10,3 @@ of nginx from all node-hosts. The NH used as CDN，which can cache for your webs
 ./install.sh
 
 =============USEAGE================
-
-Put your token in http://ocdn.me

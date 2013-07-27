@@ -17,7 +17,7 @@ def b2h(num):
 		num /= 1024.0
 
 def bytes2bits(num):
-	for x in ['Bit/s','KBit/s', 'MBit/s', 'GBit/s', 'TBit/s', 'PBit/s', 'EBit/s', 'ZBit/s', 'YBit/s']:
+	for x in ['Bps','KBps', 'MBps', 'GBps', 'TBps', 'PBps', 'EBps', 'ZBps', 'YBps']:
 		if num < 1024.0:
 			return "%3.2f %s" % (num, x)
 		num /= 1024.0

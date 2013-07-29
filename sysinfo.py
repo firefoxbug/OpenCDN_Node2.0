@@ -189,8 +189,8 @@ def get_cache_size(cache_path):
 cpu|usage
 memory|total|used|usage
 cache|cache_size(bytes)|cache_size(string)
-interface|name1|ip|total_recv(bytes)|total_recv(string)|recv_rates|total_sent(bytes)|total_sent(converted)|sent_rates
-interface|name2|ip|total_recv(bytes)|total_recv(string)|recv_rates|total_sent(bytes)|total_sent(converted)|sent_rates
+interface|name1|ip|total_recv(bytes)|total_recv(string)|recv_rates(bytes)|recv_rates(string)|total_sent(bytes)|total_sent(string)|sent_rates(bytes)|sent_rates(string)
+interface|name2|ip|total_recv(bytes)|total_recv(string)|recv_rates(bytes)|recv_rates(string)|total_sent(bytes)|total_sent(string)|sent_rates(bytes)|sent_rates(string)
 .
 .
 .
@@ -214,10 +214,9 @@ def system_info():
 	sysinfo_cmd = '''cpu|%s%%\nmemory|%s|%s|%s\ncache|%s|%s\n'''%(cpu_usage,meminfo['mem_total'],meminfo['mem_used'],meminfo['mem_used_rate'],cache,cache_h)
 	
 	sysinfo_cmd = sysinfo_cmd + network_flow()
-	print sysinfo_cmd
+#	print sysinfo_cmd
 	sys_info_path = "/usr/local/opencdn/node/sysinfo.txt"
 	os.system("echo \"%s\" > %s"%(sysinfo_cmd,sys_info_path))
-#	disk_stat()
 
 def network_flow():
 	time2sleep = 1
@@ -236,13 +235,12 @@ def network_flow():
 		netiface_old = netifaces_old[i]
 #		print '* Interface name: %s' % netiface['name']
 #		print '* IP address: %s' % netiface['ip']
-		recv_rate = (netiface['rx_bytes']-netiface_old['rx_bytes'])/elapsed
-		send_rate = (netiface['tx_bytes']-netiface_old['tx_bytes'])/elapsed
-		recv_rate2h = bytes2bits(recv_rate*8)
-		send_rate2h = bytes2bits(send_rate*8)
-#		print '* Data receive: %d %s %s' % (netiface['rx_bytes'],netiface['rx'],recv_rate2h)
-#		print '* Data transmit: %d %s %s' % (netiface['tx_bytes'],netiface['tx'],send_rate2h)
-		network_str = network_str + 'interface|%s|%s|%s|%s|%s|%s|%s|%s\n'%(netiface['name'],netiface['ip'],netiface['rx_bytes'],netiface['rx'],recv_rate2h,netiface['tx_bytes'],netiface['tx'],send_rate2h)
+		recv_rate = (netiface['rx_bytes']-netiface_old['rx_bytes'])*8.0/elapsed
+		send_rate = (netiface['tx_bytes']-netiface_old['tx_bytes'])*8.0/elapsed
+		recv_rate2h = bytes2bits(recv_rate)
+		send_rate2h = bytes2bits(send_rate)
+
+		network_str = network_str + 'interface|%s|%s|%s|%s|%.2f|%s|%s|%s|%.2f|%s\n'%(netiface['name'],netiface['ip'],netiface['rx_bytes'],netiface['rx'],recv_rate,recv_rate2h,netiface['tx_bytes'],netiface['tx'],send_rate,send_rate2h)
 #		print
 		i = i + 1
 	return network_str

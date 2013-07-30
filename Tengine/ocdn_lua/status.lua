@@ -96,10 +96,16 @@ if(sysinfo) then
 			intr = {info = {}, count={}}
 			local name = valtab[2]
 			if(valtab[3]) then intr.info.inet = valtab[3] end
+
+			if(valtab[4]) then intr.count["receive-bytes-origin"] = valtab[4] end
 			if(valtab[5]) then intr.count["receive-bytes"] = valtab[5] end
-			if(valtab[6]) then intr.count["receive-bytes-speed"] = valtab[6] end
-			if(valtab[8]) then intr.count["transmit-bytes"] = valtab[8] end
-			if(valtab[9]) then intr.count["transmit-bytes-speed"] = valtab[9] end
+			if(valtab[6]) then intr.count["receive-bytes-speed-origin"] = valtab[6] end
+			if(valtab[7]) then intr.count["receive-bytes-speed"] = valtab[7] end
+			
+			if(valtab[8]) then intr.count["transmit-bytes-origin"] = valtab[8] end
+			if(valtab[9]) then intr.count["transmit-bytes"] = valtab[9] end
+			if(valtab[10]) then intr.count["transmit-bytes-speed-origin"] = valtab[10] end
+			if(valtab[11]) then intr.count["transmit-bytes-speed"] = valtab[11] end
 			info.network[name] = intr
 		end
 	end	

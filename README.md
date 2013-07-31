@@ -1,12 +1,28 @@
-=========INTROUCDE===========
+OpenCDN 2.0
 
-OpenCDN a open-source management platform, which can help you build node-hosts in 5 minutes.
-The system consists of the Control Center(CC) and Node Host(NH). The CC can monitor a basic 
-system information on each node, such as cpu usage and health status. CC also can collect logs 
-of nginx from all node-hosts. The NH used as CDN，which can cache for your website and clear cache .
+=========================INTROUCDE====================
 
-=========INSTALL=============
+1.Full free CDN deployment tools, including CDN nodes management platform and accelerate the deployment package. OpenCDN provides a convenient tool builders, real-time self-creation of CDN acceleration services
 
-./install.sh
+2.OpenCDN is Based on nginx + proxy_cache cache module, without operator profiles, click the mouse to set up high availability CDN acceleration system
 
-=============USEAGE================
+3.OpenCDN management center capable of operating status of each node, the system load and network traffic in real-time monitoring and unified management and control node's cache strategy to synchronize all the nodes
+
+====================INSTALL on Linux====================
+
+Platform : CentOS 5.X CentOS 6.x 32bits 64bits
+# wget https://github.com/firefoxbug/OpenCDN2.0/archive/master.zip
+# unzip master.zip
+# cd OpenCDN2.0-master/
+# ./install.sh
+
+========================USEAGE============================
+
+After install you will get a token which identifys your host.
+
+# service opencdn start
+# service nginx start
+
+====================UNINSTALL==========================
+
+# ./unstall.sh

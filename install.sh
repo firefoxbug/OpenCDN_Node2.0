@@ -68,6 +68,9 @@ function get_system_basic_info()
 	setenforce 0
 	rpm -ivh "http://dl.fedoraproject.org/pub/epel/${VER}/${CPU_ARC}/${rpm_ver}"
 	yum -y install yum-fastestmirror
+	yum -y install ntpdate
+	/usr/sbin/ntpdate us.pool.ntp.org
+	/sbin/hwclock -w
 }
 
 ./uninstall.sh

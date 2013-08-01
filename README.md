@@ -17,6 +17,7 @@
 ====================INSTALL on Linux====================
 
 Platform : CentOS 5.X CentOS 6.x 32bits 64bits
+
 	wget https://github.com/firefoxbug/OpenCDN2.0/archive/master.zip
 	unzip master.zip
 	cd OpenCDN2.0-master/

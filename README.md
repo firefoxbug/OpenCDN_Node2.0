@@ -1,11 +1,3 @@
-  ___                    ____ ____  _   _ 
- / _ \ _ __   ___ _ __  / ___|  _ \| \ | |
-| | | | '_ \ / _ \ '_ \| |   | | | |  \| |
-| |_| | |_) |  __/ | | | |___| |_| | |\  |
- \___/| .__/ \___|_| |_|\____|____/|_| \_|
-      |_|                                 
-
-
 =========================INTROUCDE====================
 
 1.Full free CDN deployment tools, including CDN nodes management platform and accelerate the deployment package. OpenCDN provides a convenient tool builders, real-time self-creation of CDN acceleration services

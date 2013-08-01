@@ -1,4 +1,10 @@
-OpenCDN 2.0
+  ___                    ____ ____  _   _ 
+ / _ \ _ __   ___ _ __  / ___|  _ \| \ | |
+| | | | '_ \ / _ \ '_ \| |   | | | |  \| |
+| |_| | |_) |  __/ | | | |___| |_| | |\  |
+ \___/| .__/ \___|_| |_|\____|____/|_| \_|
+      |_|                                 
+
 
 =========================INTROUCDE====================
 
@@ -11,18 +17,18 @@ OpenCDN 2.0
 ====================INSTALL on Linux====================
 
 Platform : CentOS 5.X CentOS 6.x 32bits 64bits
-## wget https://github.com/firefoxbug/OpenCDN2.0/archive/master.zip
-# unzip master.zip
-# cd OpenCDN2.0-master/
-# ./install.sh
+	wget https://github.com/firefoxbug/OpenCDN2.0/archive/master.zip
+	unzip master.zip
+	cd OpenCDN2.0-master/
+	./install.sh
 
 ========================USEAGE============================
 
 After install you will get a token which identifys your host.
 
-# service opencdn start
-# service nginx start
+	service opencdn start
+	service nginx start
 
 ====================UNINSTALL==========================
 
-# ./unstall.sh
+	./unstall.sh

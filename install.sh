@@ -37,14 +37,13 @@ get_char()
 
 function get_system_basic_info()
 {
-	echo "==========================OpenCDN===================================="
-	echo "*                                                                   *"
-	echo "*                                                                   *"
-	echo "*                     Welcome To OpenCDN                            *"
-	echo "*                                                                   *"
-	echo "*                                                                   *"
-	echo "==========================OpenCDN===================================="
-
+	echo "  ___                    ____ ____  _   _ 
+ / _ \ _ __   ___ _ __  / ___|  _ \| \ | |
+| | | | '_ \ / _ \ '_ \| |   | | | |  \| |
+| |_| | |_) |  __/ | | | |___| |_| | |\  |
+ \___/| .__/ \___|_| |_|\____|____/|_| \_|
+      |_|                                 
+"
 	echo ""
 	echo "Press any key to start install opencdn , please wait ......"
 	char=`get_char`

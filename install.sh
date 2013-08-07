@@ -124,6 +124,7 @@ echo "===========================nginx install completed========================
 
 
 chown www:www -R ${OPENCDN_WEB_PATH}
+chown www:www ${bandwidth_fifo} ${command_fifo}
 
 chmod u+x ${cur_dir}/opencdn
 rm -f /etc/init.d/opencdn

@@ -1,0 +1,20 @@
+OpenCDN2.0 NODE
+
+/usr/local/opencdn/
+|-- log			节点端程序运行日志
+|   |-- bandwidth.log
+|   `-- sysinfo.log
+|-- node		
+|   `-- sysinfo.txt	节点端系统信息
+|-- pipe
+|   |-- bandwidth.pipe	流量采集管道
+|   `-- command.pipe	系统命令管道
+|-- sbin
+|   |-- bandwidth.sh	流量采集程序
+|   |-- sysinfo.py	系统信息采集程序
+|-- stream		流量缓存目录
+|-- web
+	|--index.html
+
+/home/logs		站点日志
+/home/cache		缓存

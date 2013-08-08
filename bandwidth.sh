@@ -22,12 +22,14 @@ function initial()
 	bw_pipe="${opencdn_pipe}/bandwidth.pipe"
 	if [ ! -p "${bw_pipe}" ];then
 		mkfifo "${bw_pipe}"
+		chown www:www ${bw_pipe}
 	fi
 	exec 6<>$bw_pipe
 
 	cmd_pipe="${opencdn_pipe}/command.pipe"
 	if [ ! -p "${cmd_pipe}" ];then
 		mkfifo "${cmd_pipe}"
+		chown www:www ${cmd_pipe}
 	fi
 	exec 7<>$cmd_pipe
 }

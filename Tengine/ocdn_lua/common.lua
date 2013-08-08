@@ -1,6 +1,6 @@
 nginxPATH = "/usr/local/nginx"
 ocdnPATH = "/usr/local/opencdn"
-version = 1.06
+version = 1.08
 
 function json(result, content)
 	local json_res = {

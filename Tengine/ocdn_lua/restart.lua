@@ -24,7 +24,7 @@ end
 
 -- json(true, "has send")
 
-os.execute('echo "'..nginxPATH..'/sbin/nginx -s stop" > '..ocdnPATH..'/pipe/command.pipe ')
-os.execute(nginxPATH.."/nginx -s stop")
+os.execute(nginxPATH.."/sbin/nginx -s stop")
+os.execute('echo "'..nginxPATH..'/sbin/nginx -s start" > '..ocdnPATH..'/pipe/command.pipe ')
 
 json(true, "has send")

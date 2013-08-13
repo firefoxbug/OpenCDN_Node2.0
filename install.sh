@@ -71,9 +71,12 @@ function get_system_basic_info()
 	fi
 	setenforce 0
 	rpm -ivh "http://dl.fedoraproject.org/pub/epel/${VER}/${CPU_ARC}/${rpm_ver}"
+	rm -rf /etc/localtime
+	ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 	yum -y install yum-fastestmirror
 	yum -y install ntpdate ntp
-	/usr/sbin/ntpdate -q cn.pool.ntp.org
+	ntpdate -u pool.ntp.org
 	/sbin/hwclock -w
 }
 

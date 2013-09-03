@@ -132,6 +132,10 @@ echo "===========================nginx install completed========================
 chown www:www -R ${OPENCDN_WEB_PATH}
 chown www:www ${bandwidth_fifo} ${command_fifo}
 
+echo "===========================iptables initial===================================="
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT
+/etc/init.d/iptables save
+
 chmod u+x ${cur_dir}/opencdn
 rm -f /etc/init.d/opencdn
 mv -f ${cur_dir}/opencdn /etc/init.d/

@@ -88,6 +88,7 @@ tar -zxvf openssl-1.0.1e.tar.gz -C /tmp
 rm -rf /tmp/lua-nginx-module /tmp/conf /tmp/ocdn_lua /tmp/nginx_init.txt
 
 cp nginx_init.txt /tmp/nginx_init.txt
+mv nginx_move_domain_cache /tmp
 mv lua-nginx-module  /tmp
 mv conf /tmp
 mv ocdn_lua /tmp

@@ -16,9 +16,12 @@ fi
 
 kill -9 `ps aux | grep "httpd" | awk "{print $2}"` > /dev/null 2>&1 
 kill -9 `ps aux | grep "nginx" | awk "{print $2}"` > /dev/null 2>&1 
+
 rm -rf /usr/local/nginx
 rm -f /etc/init.d/nginx
-
+pushd /tmp
+rm -rf tengine-1.4.6* lua-cjson-2.1.0* lua-nginx-module* ngx_cache_purge-2.1* openssl-1.0.1e* pcre-8.33*
+popd
 sed -i 's/^exclude/#exclude/'  /etc/yum.conf && yum -y install gcc && sed -i 's/^#exclude/exclude/'  /etc/yum.conf
 
 ##Downloading
@@ -66,12 +69,11 @@ tar -zxvf ngx_cache_purge-2.1.tar.gz -C /tmp
 
 
 ##pcre-8.33
-wget -c http://ftp.exim.llorien.org/pcre/pcre-8.33.tar.gz
 if [ -s pcre-8.33.tar.gz ]; then
 	echo "pcre-8.33.tar.gz  [found]"
 else
 	echo "Error: pcre-8.33.tar.gz not found!!!download now......"
-	wget -c http://ftp.exim.llorien.org/pcre/pcre-8.33.tar.gz
+	wget -c http://ftp.cs.stanford.edu/pub/exim/pcre/pcre-8.33.tar.gz
 fi
 tar -zxvf pcre-8.33.tar.gz -C /tmp
 
@@ -109,7 +111,7 @@ useradd -g www -s /bin/false -M www
 
 cd /tmp/tengine-1.4.6
 yum install -y lua-devel
-./configure --user=www --group=www  --prefix=/usr/local/nginx --with-syslog --with-pcre=../pcre-8.33 --with-openssl=../openssl-1.0.1e --add-module=../ngx_cache_purge-2.1   --with-http_gzip_static_module --add-module=../lua-nginx-module
+./configure --user=www --group=www --prefix=/usr/local/nginx --with-syslog --with-pcre=../pcre-8.33 --with-openssl=../openssl-1.0.1e --add-module=../ngx_cache_purge-2.1   --with-http_gzip_static_module --add-module=../lua-nginx-module
 make && make install
 
 echo "======================= tengine install completed ============================="
@@ -158,4 +160,5 @@ chkconfig --list nginx
 
 echo "============================== clean ====================================="
 cd /tmp 
-rm -rf tengine-1.4.6* lua-cjson-2.1.0* lua-nginx-module* ngx_cache_purge-2.1* openssl-1.0.1e* pcre-8.33*
+#rm -rf tengine-1.4.6* lua-cjson-2.1.0* lua-nginx-module* ngx_cache_purge-2.1* openssl-1.0.1e* pcre-8.33*
+

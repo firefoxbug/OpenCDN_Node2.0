@@ -126,6 +126,7 @@ cp /tmp/lua-cjson-2.1.0/cjson.so /usr/lib/lua/5.1/
 
 echo "========================== setting conf files =================================="
 rm -rf /usr/local/nginx/conf
+rm -f /usr/local/nginx/html/index.html
 
 mv /tmp/conf /usr/local/nginx/
 chown www:www -R /usr/local/nginx/conf
@@ -144,7 +145,7 @@ mkdir /home/logs/
 chown www:www -R /home/logs/
 
 token=$(echo -n "$HOSTNAME `date` $(($RANDOM %1000 + 1))" | md5sum | awk '{print $1}')
-echo "token = \"$token\"" > /usr/local/nginx/ocdn_lua/token.lua
+echo "return \"$token\"" > /usr/local/nginx/ocdn_lua/token.lua
 
 echo "======================= set auto start scripts ============================="
 mv -f /tmp/nginx_init.txt /etc/init.d/nginx

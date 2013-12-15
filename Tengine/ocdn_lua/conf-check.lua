@@ -1,18 +1,18 @@
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 local args = ngx.req.get_uri_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	common.json(false, "access deny")
 end
 
-local result,msg = conftest()
+local result,msg = common.conftest()
 if(result) then
-	json(true, msg)
+	common.json(true, msg)
 else
-	json(false, msg)
+	common.json(false, msg)
 end
 
 

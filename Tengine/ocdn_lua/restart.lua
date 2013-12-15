@@ -1,11 +1,11 @@
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 local args = ngx.req.get_uri_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	commmon.json(false, "access deny")
 end
 
 -- local ok = io.open("../logs/nginx.pid", "r")
@@ -20,11 +20,11 @@ end
 -- local ok, err = io.open("/tmp/no-such-file", "r")
 -- local ok = io.open("/proc/cpuinfo23", "r")
 -- ngx.say(ok)
--- if not ok then ngx.print(err) end
 
--- json(true, "has send")
 
-os.execute(nginxPATH.."/sbin/nginx -s stop")
-os.execute('echo "'..nginxPATH..'/sbin/nginx -s start" > '..ocdnPATH..'/pipe/command.pipe ')
+os.execute('echo "'..common.nginxPATH..'/sbin/nginx -s stop" > '..common.ocdnPATH..'/pipe/command.pipe ')
+os.execute('echo "'..common.nginxPATH..'/sbin/nginx -s start" > '..common.ocdnPATH..'/pipe/command.pipe ')
 
-json(true, "has send")
+--ngx.say('echo "'..common.nginxPATH..'/sbin/nginx -s start" > '..common.ocdnPATH..'/pipe/command.pipe ')
+
+common.json(true, "has send")

@@ -1,14 +1,14 @@
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 local args = ngx.req.get_uri_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	common.json(false, "access deny")
 end
 
-tree = tree(nginxPATH.."/conf", true)
-json(true, tree)
+local tree = common.tree(common.nginxPATH.."/conf", true)
+common.json(true, tree)
 
 

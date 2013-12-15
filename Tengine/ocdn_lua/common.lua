@@ -1,8 +1,10 @@
-nginxPATH = "/usr/local/nginx"
-ocdnPATH = "/usr/local/opencdn"
-version = 1.08
+local val = {}
 
-function json(result, content)
+val.nginxPATH = "/usr/local/nginx"
+val.ocdnPATH = "/usr/local/opencdn"
+val.version = 1.09
+
+val.json = function(result, content)
 	local json_res = {
 		result = false,
 		msg = ""
@@ -19,7 +21,7 @@ function json(result, content)
 	ngx.exit(ngx.HTTP_OK)
 end
 
-function fileload(path, type)
+val.fileload = function(path, type)
 	-- local result
 	-- if pcall(function ()
 	-- 	local file = io.open(path, "r")
@@ -47,13 +49,13 @@ function fileload(path, type)
 		end
 		return result
 	else
-		ngx.log(ngx.ERR, err)
+		-- ngx.log(ngx.ERR, err)
 		return false
 	end
 end
 
-function conftest()
-	local test = io.popen(nginxPATH..'/sbin/nginx -t 2>&1')
+val.conftest = function()
+	local test = io.popen(val.nginxPATH.."/sbin/nginx -t 2>&1")
 	local result = test:read("*all")
 	local status = false
 	local info = {}
@@ -76,9 +78,9 @@ function conftest()
 	return status, info
 end
 
-function tree(path, all)
+val.tree = function(path, all)
 	local all = all or false
-	local ls = io.popen('ls -l '..path)
+	local ls = io.popen("ls -l "..path)
 	local files = {}
 	for ele in ls:lines() do
 		local fs = {"privilege", "total", "user", "group", "size", "month", "day", "time", "name"}
@@ -93,7 +95,7 @@ function tree(path, all)
 		if(string.sub(file.privilege, 0, 1) == "d") then
 			file.type = "dict"
 			if(all and file.name) then
-				file.list = tree(path.."/"..file.name, true)
+				file.list = common.tree(path.."/"..file.name, true)
 			end
 		else
 			file.type = "file"
@@ -102,6 +104,9 @@ function tree(path, all)
 	end
 	return files
 end
+
+return val;
+	
 
 -- a,b = conftest()
 -- ngx.say(a)

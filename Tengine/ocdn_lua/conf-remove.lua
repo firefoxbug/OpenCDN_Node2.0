@@ -1,18 +1,18 @@
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 local args = ngx.req.get_uri_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	common.json(false, "access deny")
 end
 
 if not args.file then
-	json(false, "file arg is empty")
+	common.json(false, "file arg is empty")
 end
 
-reload = false
+local reload = false
 if args.reload == "yes" then reload = true end
 
 --check file name
@@ -21,17 +21,17 @@ for ele in string.gfind(tmpfile, "%S+") do
 	local checkdir = string.find(ele, "^[0-9a-zA-Z_\-]+$")
 	local checkfile = string.find(ele, "^[0-9a-zA-Z_\-]*[\.][0-9a-zA-Z_\-]+$")
 	if not checkdir and not checkfile then
-		json(false, "unaccess file name!")
+		common.json(false, "unaccess file name!")
 	end
 end
 
-os.execute('rm -Rf '..nginxPATH..'/conf/'..args.file)
+os.execute('rm -Rf '..common.nginxPATH..'/conf/'..args.file)
 
 if reload then
-	io.popen(nginxPATH..'/sbin/nginx -s reload')
+	io.popen(common.nginxPATH..'/sbin/nginx -s reload')
 end
 
-json(true, 'remove send!')
+common.json(true, 'remove send!')
 
 
 

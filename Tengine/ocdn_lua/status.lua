@@ -1,15 +1,15 @@
 
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 local args = ngx.req.get_uri_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	common.json(false, "access deny")
 end
 
-info = {
+local info = {
 	system = false,
 	kernel = false,
 	memory = {},
@@ -17,14 +17,14 @@ info = {
 	load = {},
 	network = {},
 	storage = {},
-	version = version
+	version = common.version
 }
 
-info.system = fileload("/etc/issue", "line")
-info.kernel = fileload("/proc/version", "line")
+info.system = common.fileload("/etc/issue", "line")
+info.kernel = common.fileload("/proc/version", "line")
 
 -- cpu info catch
-local result = fileload("/proc/cpuinfo", "all")
+local result = common.fileload("/proc/cpuinfo", "all")
 
 i , stop, count = 0 , 0, 2
 cpuList = { [1] = {start = 0, stop = 0}}
@@ -75,7 +75,7 @@ end
 
 info.cpu['info'] = cpuType
 
-local sysinfo = fileload("/usr/local/opencdn/node/sysinfo.txt", "object")
+local sysinfo = common.fileload("/usr/local/opencdn/node/sysinfo.txt", "object")
 
 if(sysinfo) then
 	for ele in sysinfo:lines() do
@@ -247,5 +247,5 @@ else
 end
 
 
-json(true, info)
+common.json(true, info)
 

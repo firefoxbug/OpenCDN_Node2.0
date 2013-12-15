@@ -1,20 +1,20 @@
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 ngx.req.read_body()
 local args = ngx.req.get_uri_args()
 local post = ngx.req.get_post_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	common.json(false, "access deny")
 end
 
 if not args.file then
-	json(false, "file arg is empty")
+	common.json(false, "file arg is empty")
 end
 
-reload = false
+local reload = false
 if args.reload == "yes" then reload = true end
 
 --check file name
@@ -23,27 +23,27 @@ for ele in string.gfind(tmpfile, "%S+") do
 	local checkdir = string.find(ele, "^[0-9a-zA-Z_\-]+$")
 	local checkfile = string.find(ele, "^[0-9a-zA-Z_\-]*[\.][0-9a-zA-Z_\-]+$")
 	if not checkdir and not checkfile then
-		json(false, "unaccess file name!")
+		common.json(false, "unaccess file name!")
 	end
 end
 
-local file,err = io.open(nginxPATH..'/conf/'..args.file, "w")
+local file,err = io.open(common.nginxPATH..'/conf/'..args.file, "w")
 if not file then
-	json(false, err)
+	common.json(false, err)
 end
 
 if not post.body then
-	json(false, "the file body is empty")
+	common.json(false, "the file body is empty")
 end
 
 file:write(post.body)
 file:close()
 
 if reload then
-	io.popen(nginxPATH..'/sbin/nginx -s reload')
+	io.popen(common.nginxPATH..'/sbin/nginx -s reload')
 end
 
-json(true, 'has wrote')
+common.json(true, 'has wrote')
 
 
 

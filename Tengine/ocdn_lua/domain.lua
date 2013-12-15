@@ -1,27 +1,27 @@
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 ngx.req.read_body()
 local args = ngx.req.get_uri_args()
-local post = ngx.req.get_post_args()
+-- local post = ngx.req.get_post_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	common.json(false, "access deny")
 end
 
-local conf = io.popen(nginxPATH..'/sbin/nginx -d 2>&1')
+local conf = io.popen(common.nginxPATH..'/sbin/nginx -d 2>&1')
 local result = conf:read("*all")
 
-reVal = {
+local reVal = {
 	file = {},
 	domain = {}
 }
-start,stop = string.find(result, '# contents of file "*"', 1000)
+local start,stop = string.find(result, '# contents of file "*"', 1000)
 
-i , stop, count = 0 , 0, 1
-confList = {}
-domainList = {}
+local i, stop, count = 0,  0, 1
+local confList = {}
+local domainList = {}
 while true do
     start,stop = string.find(result, '# contents of file \"%S+\"', stop + 1)
     if start == nil then break end
@@ -60,4 +60,4 @@ for key, value  in pairs(confList) do
 	end
 end 
 
-json(true, reVal)
+common.json(true, reVal)

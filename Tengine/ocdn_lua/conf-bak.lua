@@ -1,13 +1,13 @@
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 local args = ngx.req.get_uri_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	common.json(false, "access deny")
 end
 
-os.execute('cp -Rf '..nginxPATH..'/conf/ '..nginxPATH..'/ocdn_conf_bak/`date +%Y_%m_%d_%H_%M_%S`/')
+os.execute('cp -Rf '..common.nginxPATH..'/conf/ '..common.nginxPATH..'/ocdn_conf_bak/`date +%Y_%m_%d_%H_%M_%S`/')
 
-json(true, 'bak command has send')
+common.json(true, 'bak command has send')

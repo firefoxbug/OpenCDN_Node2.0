@@ -1,12 +1,12 @@
 cjson = require "cjson"
-require "token"
-require "common"
+token = require "token"
+common = require "common"
 
 local args = ngx.req.get_uri_args()
 
 if (args.token ~= token) then
-	json(false, "access deny")
+	common.json(false, "access deny")
 end
 
-local cmd = io.popen(nginxPATH..'/sbin/nginx -s reload')
-json(true, "has send")
+local cmd = io.popen(common.nginxPATH..'/sbin/nginx -s reload')
+common.json(true, "has send")

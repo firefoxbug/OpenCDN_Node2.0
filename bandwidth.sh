@@ -102,7 +102,7 @@ function log_process()
 	while :
 	do
 		read -u6 log_line
-		echo "$log_line" >> ${opencdn_log}/bandwidth.log
+		echo "`date` $log_line" >> ${opencdn_log}/bandwidth.log
 		parse_log "$log_line"
 	done
 }
@@ -113,7 +113,7 @@ function shell_cmd_process()
 	while :
 	do
 		read -u7 cmd_line
-		echo "$cmd_line" >> ${opencdn_log}/command.log
+		echo "`date` $cmd_line" >> ${opencdn_log}/command.log
 		$cmd_line >> ${opencdn_log}/command.log 2>&1
 	done
 }

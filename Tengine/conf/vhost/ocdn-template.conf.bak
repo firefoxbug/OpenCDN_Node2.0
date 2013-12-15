@@ -50,10 +50,7 @@ server {
 		
 		add_header  OpenCDN-Cache "$upstream_cache_status";	
 		expires 5m;
-		if (!-f $request_filename) {
-			proxy_pass	http://$host;
-			break;
-		}
+		proxy_pass	http://$host;
 	}
 	
 	## Not Cache

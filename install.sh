@@ -6,7 +6,7 @@
 
 ## Check user permissions ##
 if [ $(id -u) != "0" ]; then
-	echo "Error: NO PERMISSION! Please login as root to install MAPn."
+	echo "Error: NO PERMISSION! Please login as root to install OpenCDN."
 	exit 1
 fi
 
@@ -105,6 +105,7 @@ cp ./sysinfo.py ${OPENCDN_EXEC_PATH}
 
 bandwidth_fifo="${OPENCDN_PIPE_PATH}/bandwidth.pipe"
 mkfifo $bandwidth_fifo
+chmod 777 "${bandwidth_fifo}"
 if [ ! -p "${bandwidth_fifo}" ] 
 then
 	echo "create ${bandwidth_fifo} failured!!!"
@@ -113,6 +114,7 @@ fi
 
 command_fifo="${OPENCDN_PIPE_PATH}/command.pipe"
 mkfifo $command_fifo
+chmod 777 "${command_fifo}"
 if [ ! -p "${command_fifo}" ] 
 then
 	echo "create ${command_fifo} failured!!!"
@@ -142,7 +144,7 @@ mv -f ${cur_dir}/opencdn /etc/init.d/
 chkconfig --add opencdn
 service opencdn restart
 service nginx start
-token=$(head -1 /usr/local/nginx/ocdn_lua/token.lua | awk -F [=\"] '{print $3}')
+token=$(head -1 /usr/local/nginx/ocdn_lua/token.lua | awk -F [=\"] '{print $2}')
 echo "==========================OpenCDN===================================="
 echo "*                                                                   *"
 echo "*			service opencdn [start|stop|restart|status]	              *"
